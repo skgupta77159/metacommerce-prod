@@ -16,9 +16,9 @@ export default function App() {
          <ambientLight intensity={1.25} />
          <ambientLight intensity={0.1} />
          <directionalLight intensity={0.4} />
-         <Suspense fallback={null}>
+         {/* <Suspense fallback={null}>
             <TopChairModel position={[0.025, -3, 0]} /> 
-            </Suspense>
+            </Suspense> */}
             <Suspense fallback={null}>
             <Store position={[0.025, -3, 0]} /> 
             </Suspense>

@@ -8,11 +8,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png",
   },
-  fullname: {
+  userName: {
     type: String,
     required: [true, "Please provide Fullname"],
   },
-  email: {
+  userEmail: {
     type: String,
     required: [true, "Please provide email address"],
     unique: true,
@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema({
     minlength: 8,
     select: false,
   },
-
+  cartItem : [],
+  
   tokens: [
     {
       token: {
