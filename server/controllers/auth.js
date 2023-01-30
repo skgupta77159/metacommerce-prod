@@ -25,7 +25,6 @@ exports.signin = async (req, res, next) => {
   //   Register user
 exports.signup = async (req, res, next) => {
     const { userName, userEmail, password, cpassword } = req.body;
-    
     try {
       const oldUser = await User.findOne({ userEmail: req.body.userEmail });
       if (password != cpassword) {

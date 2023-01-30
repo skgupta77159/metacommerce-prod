@@ -30,11 +30,11 @@ function App() {
                 <Route path="/admin/sign-up" element={<AdminSignup />} />
                 <Route path="/admin/dashboard/:tabs" element={<AdminPrivateRoute><AdminDashboard /></AdminPrivateRoute>} /> */}
 
-                <Route path="/user/sign-in" element={<UserSignin />} />
-                <Route path="/user/sign-up" element={<UserSignup />} />
-                <Route path="/user/dashboard/:tabs" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
+                <Route exact path="/user/sign-in" element={<UserSignin />} />
+                <Route exact path="/user/sign-up" element={<UserSignup />} />
+                <Route exact path="/user/dashboard/:tabs" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
 
-                <Route path="/product/:product_id" element={<ProductPage/>} />
+                <Route exact path="/product/:product_id" element={<ProductPage/>} />
               </Routes>
             </BrowserRouter>
           </div>

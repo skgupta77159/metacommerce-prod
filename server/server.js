@@ -1,9 +1,10 @@
 const express = require("express");
+var cors = require('cors')
 require('dotenv').config({path: "./config.env"})
 const app = express();
 const connectDB = require("./configuration/db");
 const errorHandler = require("./middleware/error");
-
+app.use(cors())
 connectDB();
 
 app.use(express.json());
