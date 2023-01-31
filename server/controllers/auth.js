@@ -25,8 +25,10 @@ exports.signin = async (req, res, next) => {
   //   Register user
 exports.signup = async (req, res, next) => {
     const { userName, userEmail, password, cpassword } = req.body;
+    console.log(req.body)
     try {
       const oldUser = await User.findOne({ userEmail: req.body.userEmail });
+      // console.log(oldUser)
       if (password != cpassword) {
         return res.status(401).json({ sucess: false, error: "Invalid credential" });
       }
