@@ -46,7 +46,8 @@ export default function UserSignup() {
                     throw new Error(`Internal Server Error`);
                 }
             });
-            localStorage.setItem("userAuthToken", data.userAuthToken);
+            console.log(data)
+            localStorage.setItem("userAuthToken", data.token);
             localStorage.removeItem("adminAuthToken");
             setContext()
             setIsLoading(false);

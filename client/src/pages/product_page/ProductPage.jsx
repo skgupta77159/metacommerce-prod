@@ -32,8 +32,8 @@ export default function ProductPage(props) {
                         "Content-Type": "application/json",
                     }
                 }
-                return await axios.post('/api/public/product/getone', { "product_id": product_id }, config).then(response => {
-                    setProduct(response.data.data)
+                return await axios.post('/api/auth/getproduct', { "productId": product_id }, config).then(response => {
+                    setProduct(response.data)
                     document.title = response.data.data.product_name
                     setPageLoading(false)
                 }).catch((error) => {
@@ -67,7 +67,7 @@ export default function ProductPage(props) {
             }
         }
         getProduct();
-        getReviews();
+        // getReviews();
     }, [product_id]);
 
     const handleAddCart = async (e) => {
@@ -142,7 +142,7 @@ export default function ProductPage(props) {
                                 <h3>Price : ${product.product_price}/-</h3>
                                 <p>{product.product_description}</p>
                                 <div className="prodActionDiv">
-                                    <button className="addBagBtn" onClick={handleAddCart} disabled={isLoading || (user && user.cart_products.includes(product_id))}>{(user && user.cart_products.includes(product_id)) ? "Added" : (isLoading ? "Adding..." : "Add to Bag")}</button>
+                                    <button className="addBagBtn" onClick={handleAddCart} disabled={isLoading || (user && user.cartItem.includes(product_id))}>{(user && user.cartItem.includes(product_id)) ? "Added" : (isLoading ? "Adding..." : "Add to Bag")}</button>
                                     <button className="buyBtn" onClick={handleBuyNow}>Buy Now</button>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@ export default function ProductPage(props) {
                     }
                 </div>
 
-                {review &&
+                {/* {review &&
                     <div className="productReview">
                         <h3>{review.length} Reviews</h3>
                         <hr />
@@ -164,7 +164,7 @@ export default function ProductPage(props) {
                                     return <ReviewCard key={key} value={item} />
                                 })
                         }
-                    </div>}
+                    </div>} */}
             </div>
         </div>
     )

@@ -2,18 +2,19 @@ import axios from "../axios"
 
 export async function logout_user() {
     try {
-        const config = {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
-            }
-        }
-        return await axios.delete("/api/user/auth/logout", config).then(response => {
-            return true
-        }).catch((error) => {
-            return false
-        })
+        localStorage.removeItem("userAuthToken");
+        // const config = {
+        //     method: 'DELETE',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
+        //     }
+        // }
+        // return await axios.delete("/api/user/auth/logout", config).then(response => {
+        //     return true
+        // }).catch((error) => {
+        //     return false
+        // })
     } catch (e) {
         console.log(e)
     }
@@ -32,8 +33,8 @@ export async function check_user_auth() {
                 Authorization: `Bearer ${userToken}`
             },
         }
-        return await axios.get("/api/user/checkauth", config).then(response => {
-            return response.data
+        return await axios.get("/api/private/checkauth", config).then(response => {
+            return response.data.user
         }).catch((error) => {
             return false
         })

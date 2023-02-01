@@ -1,5 +1,6 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
+const Product = require("../models/Product");
 
 //  SignIn user
 exports.signin = async (req, res, next) => {
@@ -52,7 +53,7 @@ exports.signup = async (req, res, next) => {
   //getproduct
   exports.getsingleproduct = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.productId);
+        const product = await Product.findById(req.body.productId);
         if (product) {
             res.status(200).json(product);
         } else {

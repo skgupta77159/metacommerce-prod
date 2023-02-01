@@ -14,6 +14,9 @@ import UserPrivateRoute from './components/routing/UserPrivateRoute';
 import UserDashboard from './pages/user_dashboard/UserDashboard';
 import { SearchContextProvider } from './context/SearchContext';
 import ProductPage from './pages/product_page/ProductPage';
+import UserCart from './components/user_dashboard/UserCart';
+import UserProfile from './components/user_dashboard/UserProfile';
+import UserOrders from './components/user_dashboard/UserOrders';
 
 function App() {
 
@@ -25,14 +28,16 @@ function App() {
             <BrowserRouter>
               <Topbar />
               <Routes>
-                {/* <Route path="/" element={<Home />} /> */}
+                <Route path="/" element={<Home />} />
                 {/* <Route path="/admin/sign-in" element={<AdminSignin />} />
                 <Route path="/admin/sign-up" element={<AdminSignup />} />
                 <Route path="/admin/dashboard/:tabs" element={<AdminPrivateRoute><AdminDashboard /></AdminPrivateRoute>} /> */}
 
                 <Route exact path="/user/sign-in" element={<UserSignin />} />
                 <Route exact path="/user/sign-up" element={<UserSignup />} />
-                <Route exact path="/user/dashboard/:tabs" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
+                <Route exact path="/user/cart" element={<UserPrivateRoute><UserCart/></UserPrivateRoute>} />
+                <Route exact path="/user/profile" element={<UserPrivateRoute><UserProfile/></UserPrivateRoute>} />
+                <Route exact path="/user/orders" element={<UserPrivateRoute><UserOrders/></UserPrivateRoute>} />
 
                 <Route exact path="/product/:product_id" element={<ProductPage/>} />
               </Routes>
