@@ -59,8 +59,9 @@ exports.checkauth = async (req, res, next) => {
 exports.additemtocart = async (req, res, next) => {
     try {
         const user = await User.findById(req.body.userId);
+        console.log(user)
         if (user) {
-            await User.updateOne({ $push: { cartItem: req.body.productId } });
+            await User.updateOne({ _id: req.body.userId } , { $push: { cartItem: req.body.productId } });
             res.status(200).json(req.user);
         } else {
             res.status(404).json({ sucess: false, error: "Error Occured" });
@@ -76,7 +77,7 @@ exports.removeitemfromcart = async (req, res, next) => {
     try {
         const user = await User.findById(req.body.userId);
         if (user) {
-            await user.updateOne({ $pull: { cartItem: req.body.productId } });
+            await user.updateOne({ _id: req.body.userId } ,{ $pull: { cartItem: req.body.productId } });
             res.status(200).json(req.user);
         } else {
             res.status(404).json({ sucess: false, error: "Error Occured" });
