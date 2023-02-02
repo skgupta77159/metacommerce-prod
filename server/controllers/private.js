@@ -6,6 +6,7 @@ const Order = require('../models/Order')
 require('dotenv').config({path:"./config.env"})
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { use } = require("../routes/private");
 //get user data
 exports.getuser = async (req, res, next) => {
     try {
@@ -76,8 +77,9 @@ exports.additemtocart = async (req, res, next) => {
 exports.removeitemfromcart = async (req, res, next) => {
     try {
         const user = await User.findById(req.body.userId);
+        // console.log(user)
         if (user) {
-            await user.updateOne({ _id: req.body.userId } ,{ $pull: { cartItem: req.body.productId } });
+            await User.update({ _id: req.body.userId } ,{ $pull: { cartItem: req.body.productId } });
             res.status(200).json(req.user);
         } else {
             res.status(404).json({ sucess: false, error: "Error Occured" });
@@ -120,6 +122,7 @@ exports.buyproduct = async (req, res, next) => {
     try {
         const receiveItem = req.body.items;
         const deliveryAddress = req.body.deliveryAddress;
+        
         for (const obj of receiveItem) {
             const { userId, userName, storeId, totalPrice } = obj;
             const productId = obj.productId;
@@ -140,12 +143,37 @@ exports.buyproduct = async (req, res, next) => {
                 productPrice : productPrice,
                 deliveryAddress: deliveryAddress
             });
-        }
 
+            const user = await User.findById(userId);
+            // console.log(user)
+            if (user) {
+                await User.update({ _id: userId } ,{ cartItem: [] } );
+                res.status(200).json(req.user);
+            }
+
+        }
+ 
         res.status(200).json({ sucess: true, message: "Order Successfull" });
 
     } catch (err) {
         next(err);
         console.log(err)
     }
-};
+
+
+}
+
+//update status
+exports.updatestatus = async (req, res, next) => {
+    
+    try {
+        const order = await Order.findById(req.body.orderId);
+        if (order) {
+            await order.updateOne({ $set: { status: req.body.status } });
+        }
+        res.status(200).json({ sucess: true, message: "Status updated Successfully" });
+    } catch (err) {
+        next(err);
+        console.log(err)
+    }
+}

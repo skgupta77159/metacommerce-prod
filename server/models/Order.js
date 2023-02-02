@@ -44,6 +44,10 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide totalPrice"],
     },
+    status: {
+      type: String,
+      default: "Processing",
+  },
   },
   { timestamps: true }
 );
