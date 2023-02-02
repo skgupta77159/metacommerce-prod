@@ -58,16 +58,16 @@ export async function add_to_cart(product_id, userId){
     })
 }
 
-export async function remove_from_cart(product_id) {
+export async function remove_from_cart(product_id, userId) {
     try {
         const config = {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
             }
         }
-        return await axios.put('/api/user/product/removefromcart', {"product_id": product_id}, config).then(response => {
+        return await axios.post('/api/private/removefromcarts', {"productId": product_id, "userId":userId}, config).then(response => {
             return true
         }).catch((error) => {
             return false

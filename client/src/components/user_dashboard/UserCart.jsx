@@ -19,25 +19,25 @@ export default function UserCart() {
         try {
             setIsLoading(true)
             const config = {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
                 },
             }
-            const { data } = await axios.get("/api/user/product/getcartitem", config).catch((error) => {
+            const { data } = await axios.post("/api/private/getcartitems", { userId: user._id }, config).catch((error) => {
                 console.log("failed to load cart item")
             })
             let dummy = 0;
-            for (let i = 0; i < data.data.length; i++) {
-                data.data[i].user_id = user._id;
-                data.data[i].product_price = parseInt(data.data[i].product_price)
-                data.data[i].total_price = data.data[i].product_price;
-                data.data[i].quantity = 1;
-                dummy = dummy + data.data[i].product_price;
+            for (let i = 0; i < data.length; i++) {
+                data[i].user_id = user._id;
+                data[i].product_price = parseInt(data[i].product_price)
+                data[i].total_price = data[i].product_price;
+                data[i].quantity = 1;
+                dummy = dummy + data[i].product_price;
                 setGrosstotal(dummy);
             }
-            setCartItem(data.data)
+            setCartItem(data)
             setIsLoading(false)
         } catch (e) {
             console.log("failed to load cart item")
@@ -109,31 +109,33 @@ export default function UserCart() {
         <>
             {
                 cartItem ? <>
-                    <div className="userDashRightTop">
-                        <h2>Cart</h2>
-                    </div>
                     {
-                        isLoading ? <CircularProgress/> :
-                        cartItem.length > 0 ?
-                            <>
-                                <div className="userCartDiv">
-                                    {
-                                        cartItem.map((item, key) => {
-                                            return (
-                                                <CartCard key={key} value={item} />
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <div className="footer">
-                                    <hr></hr>
-                                    <b>
-                                        <span className="gt">Grand Total : </span>
-                                        <span>${grossTotal}/-</span>
-                                    </b>
-                                    <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} />
-                                </div>
-                            </> : <h2>Oops! No item in cart 🙈</h2>
+                        isLoading ? <CircularProgress /> :
+                            cartItem.length > 0 ?
+                                <div className="userProfile">
+                                    <div className="userCartsDiv">
+                                        <div className="userDashRightTop">
+                                            <h2>Cart</h2>
+                                        </div>
+                                        <div className="userCartDiv">
+                                            {
+                                                cartItem.map((item, key) => {
+                                                    return (
+                                                        <CartCard key={key} value={item} />
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div className="footer">
+                                            <hr></hr>
+                                            <b>
+                                                <span className="gt">Grand Total : </span>
+                                                <span>${grossTotal}/-</span>
+                                            </b>
+                                            <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} />
+                                        </div>
+                                    </div>
+                                </div> : <h2>Oops! No item in cart 🙈</h2>
                     }
                 </> : null
             }

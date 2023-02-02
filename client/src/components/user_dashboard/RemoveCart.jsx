@@ -12,14 +12,14 @@ import { AppContext } from '../../context/AppContext';
 export default function RemoveCart(props) {
 
     const [open, setOpen] = React.useState(false);
-    const {setContext} = useContext(AppContext)
+    const {setContext, user} = useContext(AppContext)
     
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleSubmit = async () => {
-        const res = await remove_from_cart(props.product_id)
+        const res = await remove_from_cart(props.product_id, user._id)
         if (res) {
             handleClose();
             alert("Product Removed Successfully")

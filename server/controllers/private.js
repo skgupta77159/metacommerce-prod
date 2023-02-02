@@ -122,7 +122,7 @@ exports.buyproduct = async (req, res, next) => {
         const deliveryAddress = req.body.deliveryAddress;
         for (const obj of receiveItem) {
             const { userId, userName, storeId, totalPrice } = obj;
-            const productId = obj._id;
+            const productId = obj.productId;
             const productQuantity = obj.productQuantity;
             const productName = obj.productName;
             const productImg = obj.productImg;

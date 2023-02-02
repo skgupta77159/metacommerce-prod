@@ -12,7 +12,13 @@
     display: flex;
     justify-content: center;
 }
-
+.userCartsDiv {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 .userProfileDiv {
     background-color: #FFFFFF;
     border-radius: 10px;
@@ -232,4 +238,15 @@
 .markGreen{
     color: rgb(1, 159, 1) !important;
     font-weight: 500;
+}
+.cartDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2F2F2;
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
+}
+.userCartDiv {
+    width: 70%;
 }
