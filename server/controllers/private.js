@@ -71,6 +71,37 @@ exports.additemtocart = async (req, res, next) => {
 };
 
 
+//removefromcart
+exports.removeitemfromcart = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.body.userId);
+        if (user) {
+            await user.updateOne({ $pull: { cartItem: req.body.productId } });
+            res.status(200).json(req.user);
+        } else {
+            res.status(404).json({ sucess: false, error: "Error Occured" });
+        }
+    } catch (err) {
+        next(err);
+    }
+};
+
+//getCartItem
+exports.getAllCartItem = async (req, res, next) => {
+    try {
+        const currentUser = await User.findById(req.body.userId);
+        const cartItem = await Promise.all(
+            currentUser.cartItem.map((itemId) => {
+                return Product.findById(itemId);
+            })
+        );
+        res.status(200).json(cartItem);
+    } catch (err) {
+        next(err);
+    }
+};
+
+
 //GetAllorderofUser
 exports.getorderhistory = async (req, res, next) => {
     try {
