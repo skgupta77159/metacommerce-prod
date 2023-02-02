@@ -43,15 +43,15 @@ export async function check_user_auth() {
     }
 }
 
-export async function add_to_cart(product_id){
+export async function add_to_cart(product_id, userId){
     const config = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
         }
     }
-    return await axios.put("/api/user/product/addtocart", {"product_id": product_id} ,config).then(response => {
+    return await axios.post("/api/private/addtocart", {"productId": product_id, "userId": userId} ,config).then(response => {
         return true
     }).catch((error) => {
         return false

@@ -53,9 +53,9 @@ export const SearchContextProvider = ({ children }) => {
         }
     }
 
-    useEffect(()=>{
-        fetchAllProducts();
-    },[])
+    // useEffect(()=>{
+    //     fetchAllProducts();
+    // },[])
 
     const searchProduct = async () => {
         setIsProductLoading(true)

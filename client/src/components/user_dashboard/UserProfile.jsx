@@ -6,14 +6,14 @@ export default function UserProfile() {
 
     const { user } = useContext(AppContext)
     return (
-        <>
+        <div className="userProfile">
             {
                 user ? <>
-                    <div className="userDashRightTop">
-                        <h2>Profile</h2>
-                    </div>
                     <div className="userProfileDiv">
                         <div className="personalInfo">
+                            <div className="userDashRightTop">
+                                <h2>Profile</h2>
+                            </div>
                             <h3>Personal Details</h3>
                             <div className="infoDiv">
                                 <div className="infoProp">
@@ -21,14 +21,14 @@ export default function UserProfile() {
                                     <p>Email</p>
                                 </div>
                                 <div className="infoValue">
-                                    <p>{user.name}</p>
-                                    <p>{user.email}</p>
+                                    <p>{user.userName}</p>
+                                    <p>{user.userEmail}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </> : null
             }
-        </>
+        </div>
     )
 }

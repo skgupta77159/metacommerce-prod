@@ -31,7 +31,7 @@ export default function ProductCard(props) {
             return
         }
         setIsLoading(true);
-        const res = await add_to_cart(props.value._id);
+        const res = await add_to_cart(props.value._id, user._id);
         if (res) {
             setContext();
             setIsLoading(false);

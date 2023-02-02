@@ -77,7 +77,7 @@ export default function ProductPage(props) {
             return
         }
         setIsLoading(true);
-        const res = await add_to_cart(product_id);
+        const res = await add_to_cart(product_id, user._id);
         if (res) {
             setContext();
             setIsLoading(false);
@@ -95,13 +95,13 @@ export default function ProductPage(props) {
             return
         }
         setIsLoading(true);
-        const res = await add_to_cart(product_id);
+        const res = await add_to_cart(product_id, user._id);
         if (res) {
             setContext();
             setIsLoading(false);
+            navigate("/user/cart")
         } else {
             setIsLoading(false);
-            navigate("/user/dashboard/cart")
         }
     }
 
