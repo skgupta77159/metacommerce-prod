@@ -11,6 +11,7 @@ import { useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import SearchIcon from "../../static/svg/SearchIcon";
 import { logout_user } from "../../service/userApi";
+import { PageContext } from "../../context/PageContext";
 
 export default function Topbar() {
 
@@ -18,6 +19,7 @@ export default function Topbar() {
     const { setProductName, searchProduct } = useContext(SearchContext)
     const [searchValue, setSearchValue] = useState("");
     const navigate = useNavigate();
+    const {setPage} = useContext(PageContext);
 
     const user_logout = (e) => {
         e.preventDefault()
@@ -27,16 +29,16 @@ export default function Topbar() {
 
     return (
         <div className="topbarWrapper">
-            <NavLink exact to="/" className="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Meta-Logo.png/2560px-Meta-Logo.png" /></NavLink>
+            <div onClick={()=> setPage("home")} className="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Meta-Logo.png/2560px-Meta-Logo.png" /></div>
 
             <ul className="topbarList">
                 <>
-                    <li className="nav-item">
-                        <NavLink to="user/cart" className="nav-link"><CartIcon /></NavLink>
+                    <li className="nav-item" onClick={()=> setPage("cart")}>
+                        <div className="nav-link"><CartIcon /></div>
                         {user && user.cartItem.length > 0 ? <div className="cartBadge"><span>{user.cartItem.length}</span></div> : null}
                     </li>
-                    <li className="nav-item">
-                        <NavLink to="user/profile" className="nav-link"><UserIcon /></NavLink>
+                    <li className="nav-item" onClick={() => setPage("profile")}>
+                        <div className="nav-link" ><UserIcon /></div>
                     </li>
                 </>
                 {
@@ -47,7 +49,7 @@ export default function Topbar() {
                                 <div class="menu-content">
                                     {userAuth ?
                                         <>
-                                            <NavLink exact className="links-hidden" to='/user/orders'>Orders</NavLink>
+                                            <div className="links-hidden" onClick={() => setPage("orders")}>Orders</div>
                                             <span className="links-hidden" onClick={user_logout}>Logout</span>
                                         </>
                                         :

@@ -1,5 +1,15 @@
 
-
+.frameDiv {
+    background-color: #F2F2F2;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+.frameDiv iframe{
+    width: 100%;
+}
 .homeDivWrapper{
     display: flex;
 }

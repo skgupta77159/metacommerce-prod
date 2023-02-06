@@ -111,31 +111,36 @@ export default function UserCart() {
                 cartItem ? <>
                     {
                         isLoading ? <CircularProgress /> :
-                            cartItem.length > 0 ?
-                                <div className="userProfile">
-                                    <div className="userCartsDiv">
-                                        <div className="userDashRightTop">
-                                            <h2>Cart</h2>
-                                        </div>
-                                        <div className="userCartDiv">
-                                            {
-                                                cartItem.map((item, key) => {
-                                                    return (
-                                                        <CartCard key={key} value={item} />
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <div className="footer">
-                                            <hr></hr>
-                                            <b>
-                                                <span className="gt">Grand Total : </span>
-                                                <span>${grossTotal}/-</span>
-                                            </b>
-                                            <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} />
-                                        </div>
-                                    </div>
-                                </div> : <h2>Oops! No item in cart 🙈</h2>
+                            <div className="userProfile">
+                                <div className="userCartsDiv">
+                                    {
+                                        cartItem.length > 0 ?
+                                            <>
+                                                <div className="userDashRightTop">
+                                                    <h2>Cart</h2>
+                                                </div>
+                                                <div className="userCartDiv">
+                                                    {
+                                                        cartItem.map((item, key) => {
+                                                            return (
+                                                                <CartCard key={key} value={item} />
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                                <div className="footer">
+                                                    <hr></hr>
+                                                    <b>
+                                                        <span className="gt">Grand Total : </span>
+                                                        <span>${grossTotal}/-</span>
+                                                    </b>
+                                                    <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} />
+                                                </div>
+                                            </>
+                                            : <h2>Oops! No item in cart 🙈</h2>
+                                    }
+                                </div>
+                            </div>
                     }
                 </> : null
             }

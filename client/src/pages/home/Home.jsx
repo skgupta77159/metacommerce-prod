@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useSyncExternalStore } from 'react'
 // import ProductCard from '../../components/admin_dashboard/product_card/ProductCard';
 // import Homemap from '../../components/maps/Homemap'
 // import useGeoLocation from "../../components/maps/useGeoLocation";
 // import { CircularProgress } from '@material-ui/core'
 // import axios from 'axios';
-// import './home.css'
+import './home.css'
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { PageContext } from '../../context/PageContext';
+import UserCart from '../../components/user_dashboard/UserCart';
+import UserProfile from '../../components/user_dashboard/UserProfile';
+import UserSignin from '../user_signin/UserSignin';
+import UserSignup from '../user_signup/UserSignup';
+import UserOrders from '../../components/user_dashboard/UserOrders';
 // import { SearchContext } from '../../context/SearchContext';
 
 export default function Home() {
 
     const { user } = useContext(AppContext)
     const navigate = useNavigate();
+    const {page} = useContext(PageContext)
     // const location = useGeoLocation();
     // const { setLocMark, setLocValue, products, isProductLoading } = useContext(SearchContext);
     // const [userAddress, setUserAddress] = useState([]);
@@ -21,12 +28,11 @@ export default function Home() {
     // const [selected, setSelected] = useState("N/A");
     // const [stores, setStores] = useState([]);
 
-
-    useEffect(()=>{
-        if(!user){
-            navigate('/user/sign-in')
-        }
-    },[])
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate('/user/sign-in')
+    //     }
+    // }, [])
 
     // useEffect(() => {
     //     document.title = "MyStore Welcome you!"
@@ -63,8 +69,26 @@ export default function Home() {
     // }
 
     return (
-        <>
-        </>
+        <div className='frameDiv'>
+            <iframe src="http://127.0.0.1:8001/">
+                
+            </iframe>
+            {
+                page=="cart" && (user ? <UserCart/> : <UserSignin/>)
+            }
+            {
+                page=="profile" && (user ? <UserProfile/> : <UserSignin/>)
+            }
+            {
+                page=="orders" && (user ? <UserOrders/> : <UserSignin/>)
+            }
+            {
+                page=="signin" && <UserSignin/>
+            }
+            {
+                page=="signup" && <UserSignup/>
+            }
+        </div>
         // <div className='homeDiv'>
         //     <div className="homeDivWrapper">
         //         {

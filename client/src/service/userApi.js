@@ -86,7 +86,7 @@ export async function cancel_order(order_id) {
                 "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
             }
         }
-        return await axios.put('/api/user/product/cancelorder', {"order_id": order_id}, config).then(response => {
+        return await axios.put('/api/private/cancelorder', {"orderId": order_id}, config).then(response => {
             return true
         }).catch((error) => {
             return false

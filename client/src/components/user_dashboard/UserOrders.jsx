@@ -90,37 +90,35 @@ export default function UserOrders() {
     }
 
     return (
-        <>
+        <div className="ordersPage">
             {
                 orders ? <>
                     {
                         isLoading ? <CircularProgress /> :
-                            orders.length > 0 ?
-                                <div className="cartDiv">
-                                    <div className="userCartDiv">
-                                        <div className="userDashRightTop">
-                                            <h2>My Orders</h2>
-                                        </div>
-                                        {
-                                            orders.map((item, key) => {
-                                                return (
-                                                    <OrderCard key={key} value={item} />
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <div className="footer">
-                                        {/* <hr></hr>
-                                    <b>
-                                        <span className="gt">Grand Total : </span>
-                                        <span>${}/-</span>
-                                    </b> */}
-                                        {/* <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} /> */}
-                                    </div>
-                                </div> : <h2>Oops! No order found</h2>
+
+                            <div className="cartDiv">
+                                <div className="userCartDiv">
+                                    {
+                                        orders.length > 0 ?
+                                            <>
+                                                <div className="userDashRightTop">
+                                                    <h2>My Orders</h2>
+                                                </div>
+                                                {
+                                                    orders.map((item, key) => {
+                                                        return (
+                                                            <OrderCard key={key} value={item} />
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                            : <h2>Oops! No order found</h2>
+                                    }
+                                </div>
+                            </div>
                     }
                 </> : null
             }
-        </>
+        </div>
     )
 }

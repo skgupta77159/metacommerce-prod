@@ -177,3 +177,13 @@ exports.updatestatus = async (req, res, next) => {
         console.log(err)
     }
 }
+
+exports.cancelorder = async (req, res, next) => {
+    try {
+        const order = await Order.findByIdAndRemove(req.body.orderId);
+        res.status(200).json({ sucess: true, message: "Cancelled Successfully" });
+    } catch (err) {
+        next(err);
+        console.log(err)
+    }
+}

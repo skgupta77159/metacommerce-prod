@@ -7,6 +7,8 @@
     justify-content: space-between;
     padding: 0px 150px;
     box-sizing: border-box;
+    position: absolute;
+    background-color: #FFFFFF;
 }
 
 .topbarList {
@@ -19,10 +21,12 @@
 
 .nav-logo img {
     height: 45px;
+    cursor: pointer;
 }
 .nav-item {
     margin: 0px 10px;
     position: relative;
+    cursor: pointer;
 }
 
 .cartBadge {

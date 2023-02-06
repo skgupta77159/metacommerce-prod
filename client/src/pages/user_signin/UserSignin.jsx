@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "../../axios"
 import { AppContext } from '../../context/AppContext';
+import { PageContext } from '../../context/PageContext';
 import './usersignin.css'
 
 export default function UserSignin() {
@@ -9,6 +10,8 @@ export default function UserSignin() {
     const [user, setUser] = useState({ userEmail: "", password: "" })
     const [isLoading, setIsLoading] = useState(false);
     const {setContext} = useContext(AppContext)
+    const {setPage} = useContext(PageContext);
+
 
     const navigate = useNavigate();
     const gotoSignup = (e) => {
@@ -47,7 +50,7 @@ export default function UserSignin() {
             localStorage.removeItem("adminAuthToken");
             setContext()
             setIsLoading(false);
-            navigate('/user/profile')
+            setPage("home")
         } catch (err) {
             setIsLoading(false)
         }
@@ -65,7 +68,7 @@ export default function UserSignin() {
                     <input type="email" placeholder='Email' required name="userEmail" value={user.userEmail} onChange={handleChange} />
                     <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
                     <button type="submit" className='signinButton' disabled={isLoading}>{isLoading ? "Loading..." : "Login"}</button>
-                    <button className='gotosignUpButton' onClick={gotoSignup} >Register</button>
+                    <button className='gotosignUpButton' onClick={()=>setPage("signup")} >Register</button>
                 </div>
             </form>
         </div>

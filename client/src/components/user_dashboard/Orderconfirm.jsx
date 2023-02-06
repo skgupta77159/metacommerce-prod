@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { AppContext } from "../../context/AppContext"
 import axios from '../../axios'
 import './user_dashboard.css'
+import { PageContext } from '../../context/PageContext';
 
 export default function Orderconfirm(props) {
 
@@ -17,6 +18,7 @@ export default function Orderconfirm(props) {
     const [address, setAddress] = useState("")
     const [selectedValue, setSelectedValue] = useState(false)
     const { setContext, user } = useContext(AppContext)
+    const {setPage} = useContext(PageContext)
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -36,20 +38,6 @@ export default function Orderconfirm(props) {
             }
         }
         try {
-            // const payload = {
-            //     "deliveryAddress": address,
-            //     "items": {
-            //         "userId": user._id,
-            //         "userName": user.userName,
-            //         "storeId": props.value.store_id,
-            //         "totalPrice": props.value.total_price,
-            //         "productId": props.value._id,
-            //         "productQuantity": props.value.quantity,
-            //         "productName": props.value.product_name,
-            //         "productImg": props.value.product_image,
-            //         "productPrice": props.value.product_price,
-            //     }
-            // }
             let payloads = []
             props.value.forEach(async item => {
                 const payload = {
@@ -76,6 +64,7 @@ export default function Orderconfirm(props) {
             props.getProduct()
             setContext()
             alert("Order Successful")
+            setPage('orders')
 
         } catch (err) {
             alert("Order failed due to some error")
