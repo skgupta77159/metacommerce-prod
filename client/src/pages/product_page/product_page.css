@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     overflow-y: scroll;
+    width: 100%;
 }
 .productPageWrapper{
     width: 70%;
