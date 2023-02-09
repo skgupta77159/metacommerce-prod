@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   userEmail: {
     type: String,
     required: [true, "Please provide email address"],
-    // unique: true,
+    unique: true,
     match: [
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       "Please provide a valid email",
@@ -27,7 +27,10 @@ const UserSchema = new mongoose.Schema({
     minlength: 8,
     select: false,
   },
-  cartItem : [],
+  cartItem: {
+    type: Array,
+    default: [],
+  },
   
   tokens: [
     {
@@ -73,7 +76,5 @@ UserSchema.methods.getSignedJwtToken = async function () {
 
 
 
-const User = mongoose.model("User", UserSchema);
-
-module.exports = User;
+module.exports = User = mongoose.model("users", UserSchema);
 

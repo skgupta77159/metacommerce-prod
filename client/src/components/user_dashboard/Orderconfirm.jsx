@@ -7,16 +7,18 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {AppContext} from "../../context/AppContext"
+import { AppContext } from "../../context/AppContext"
 import axios from '../../axios'
 import './user_dashboard.css'
+import { PageContext } from '../../context/PageContext';
 
 export default function Orderconfirm(props) {
 
     const [open, setOpen] = React.useState(false);
     const [address, setAddress] = useState("")
     const [selectedValue, setSelectedValue] = useState(false)
-    const { setContext } = useContext(AppContext) 
+    const { setContext, user } = useContext(AppContext)
+    const {setPage} = useContext(PageContext)
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -36,30 +38,33 @@ export default function Orderconfirm(props) {
             }
         }
         try {
+            let payloads = []
             props.value.forEach(async item => {
-                console.log(item)
                 const payload = {
-                    "product_id": item._id,
-                    "store_id": item.store_id,
-                    "product_name": item.product_name,
-                    "product_price": item.product_price.toString(),
-                    "product_image": item.product_image,
-                    "quantity": item.quantity.toString(),
-                    "total_price": item.total_price.toString(),
-                    "delivery_address": address,
-                    "payment_mode": selectedValue ? "Cash on delivery" : "Other payment"
+                    "userId": user._id,
+                    "userName": user.userName,
+                    "storeId": item.store_id,
+                    "totalPrice": item.total_price,
+                    "productId": item._id,
+                    "productQuantity": item.quantity,
+                    "productName": item.product_name,
+                    "productImg": item.product_image,
+                    "productPrice": item.product_price,
                 }
-                const { data } = await axios.post(`/api/user/product/createorder`, payload, config).then(response => {
-                    // alert("Order Successful")
-                    handleClose();
-                }).catch(error => {
-                    // alert("Order failed, Please try again later")
-                    handleClose();
-                })
+                payloads.push(payload)
+            })
+
+            await axios.post(`/api/private/orderproduct`, {"deliveryAddress": address, "items": payloads}, config).then(response => {
+                // alert("Order Successful")
+                handleClose();
+            }).catch(error => {
+                // alert("Order failed, Please try again later")
+                handleClose();
             })
             props.getProduct()
             setContext()
             alert("Order Successful")
+            setPage('orders')
 
         } catch (err) {
             alert("Order failed due to some error")

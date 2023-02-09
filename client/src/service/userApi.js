@@ -2,18 +2,19 @@ import axios from "../axios"
 
 export async function logout_user() {
     try {
-        const config = {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
-            }
-        }
-        return await axios.delete("/api/user/auth/logout", config).then(response => {
-            return true
-        }).catch((error) => {
-            return false
-        })
+        localStorage.removeItem("userAuthToken");
+        // const config = {
+        //     method: 'DELETE',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
+        //     }
+        // }
+        // return await axios.delete("/api/user/auth/logout", config).then(response => {
+        //     return true
+        // }).catch((error) => {
+        //     return false
+        // })
     } catch (e) {
         console.log(e)
     }
@@ -32,8 +33,8 @@ export async function check_user_auth() {
                 Authorization: `Bearer ${userToken}`
             },
         }
-        return await axios.get("/api/user/checkauth", config).then(response => {
-            return response.data
+        return await axios.get("/api/private/checkauth", config).then(response => {
+            return response.data.user
         }).catch((error) => {
             return false
         })
@@ -42,31 +43,31 @@ export async function check_user_auth() {
     }
 }
 
-export async function add_to_cart(product_id){
+export async function add_to_cart(product_id, userId){
     const config = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
         }
     }
-    return await axios.put("/api/user/product/addtocart", {"product_id": product_id} ,config).then(response => {
+    return await axios.post("/api/private/addtocart", {"productId": product_id, "userId": userId} ,config).then(response => {
         return true
     }).catch((error) => {
         return false
     })
 }
 
-export async function remove_from_cart(product_id) {
+export async function remove_from_cart(product_id, userId) {
     try {
         const config = {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
             }
         }
-        return await axios.put('/api/user/product/removefromcart', {"product_id": product_id}, config).then(response => {
+        return await axios.post('/api/private/removefromcarts', {"productId": product_id, "userId":userId}, config).then(response => {
             return true
         }).catch((error) => {
             return false
@@ -85,7 +86,7 @@ export async function cancel_order(order_id) {
                 "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
             }
         }
-        return await axios.put('/api/user/product/cancelorder', {"order_id": order_id}, config).then(response => {
+        return await axios.put('/api/private/cancelorder', {"orderId": order_id}, config).then(response => {
             return true
         }).catch((error) => {
             return false

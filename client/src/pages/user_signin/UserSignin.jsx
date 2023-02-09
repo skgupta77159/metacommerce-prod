@@ -2,13 +2,16 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "../../axios"
 import { AppContext } from '../../context/AppContext';
+import { PageContext } from '../../context/PageContext';
 import './usersignin.css'
 
 export default function UserSignin() {
     const [errors, setErrors] = useState("");
-    const [user, setUser] = useState({ email: "", password: "" })
+    const [user, setUser] = useState({ userEmail: "", password: "" })
     const [isLoading, setIsLoading] = useState(false);
     const {setContext} = useContext(AppContext)
+    const {setPage} = useContext(PageContext);
+
 
     const navigate = useNavigate();
     const gotoSignup = (e) => {
@@ -34,7 +37,7 @@ export default function UserSignin() {
             }
         }
         try {
-            const { data } = await axios.post("/api/user/auth/sign-in", user, config).catch(err => {
+            const { data } = await axios.post("/api/auth/signin", user, config).catch(err => {
                 if (err.response.status === 401) {
                     setErrors(err.response.data.error)
                     throw new Error(err.response.data.error);
@@ -43,11 +46,11 @@ export default function UserSignin() {
                     throw new Error(`Internal Server Error`);
                 }
             });
-            localStorage.setItem("userAuthToken", data.userAuthToken);
+            localStorage.setItem("userAuthToken", data.token);
             localStorage.removeItem("adminAuthToken");
             setContext()
             setIsLoading(false);
-            navigate('/user/dashboard/profile')
+            setPage("home")
         } catch (err) {
             setIsLoading(false)
         }
@@ -62,10 +65,10 @@ export default function UserSignin() {
                         <div className="errorDiv">
                             <span className="errorMessage">{errors}</span>
                         </div> : null}
-                    <input type="email" placeholder='Email' required name="email" value={user.email} onChange={handleChange} />
+                    <input type="email" placeholder='Email' required name="userEmail" value={user.userEmail} onChange={handleChange} />
                     <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
                     <button type="submit" className='signinButton' disabled={isLoading}>{isLoading ? "Loading..." : "Login"}</button>
-                    <button className='gotosignUpButton' onClick={gotoSignup} >Register</button>
+                    <button className='gotosignUpButton' onClick={()=>setPage("signup")} >Register</button>
                 </div>
             </form>
         </div>

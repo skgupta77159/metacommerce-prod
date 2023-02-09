@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "../../axios"
 import './usersignup.css'
 import { AppContext } from '../../context/AppContext';
+import { PageContext } from '../../context/PageContext';
 
 export default function UserSignup() {
 
@@ -10,6 +11,7 @@ export default function UserSignup() {
     const [user, setUser] = useState({ userName: "", userEmail: "", password: "", cpassword: "" })
     const [isLoading, setIsLoading] = useState(false);
     const { setContext } = useContext(AppContext)
+    const { setPage } = useContext(PageContext)
 
     const navigate = useNavigate();
     const gotoSignin = (e) => {
@@ -46,11 +48,12 @@ export default function UserSignup() {
                     throw new Error(`Internal Server Error`);
                 }
             });
-            localStorage.setItem("userAuthToken", data.userAuthToken);
+            console.log(data)
+            localStorage.setItem("userAuthToken", data.token);
             localStorage.removeItem("adminAuthToken");
             setContext()
             setIsLoading(false);
-            navigate('/')
+            setPage("home")
         } catch (err) {
             setIsLoading(false)
         }
@@ -59,7 +62,7 @@ export default function UserSignup() {
 
     return (
         <div className='signupPage'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='signupPageWrapper'>
                 <div className="signupWrapper">
                     <div className="signupLeft">
                         <h3>User Sign Up</h3>
@@ -72,7 +75,7 @@ export default function UserSignup() {
                         <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
                         <input type="password" placeholder='Confirm Password' required name="cpassword" value={user.cpassword} onChange={handleChange} />
                         <button type="submit" className='signupButton' disabled={isLoading}>{isLoading ? "Loading..." : "Register"}</button>
-                        <button className='gotosignInButton' onClick={gotoSignin} >Sign In</button>
+                        <button className='gotosignInButton' onClick={()=> setPage('signin')} >Sign In</button>
                     </div>
                 </div>
             </form>

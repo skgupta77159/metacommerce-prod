@@ -1,5 +1,6 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
+const Product = require("../models/Product");
 
 //  SignIn user
 exports.signin = async (req, res, next) => {
@@ -25,8 +26,10 @@ exports.signin = async (req, res, next) => {
   //   Register user
 exports.signup = async (req, res, next) => {
     const { userName, userEmail, password, cpassword } = req.body;
+    console.log(req.body)
     try {
       const oldUser = await User.findOne({ userEmail: req.body.userEmail });
+      // console.log(oldUser)
       if (password != cpassword) {
         return res.status(401).json({ sucess: false, error: "Invalid credential" });
       }
@@ -50,7 +53,7 @@ exports.signup = async (req, res, next) => {
   //getproduct
   exports.getsingleproduct = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.productId);
+        const product = await Product.findById(req.body.productId);
         if (product) {
             res.status(200).json(product);
         } else {

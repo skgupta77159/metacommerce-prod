@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
-  storeId:{
+  store_id:{
     type: String,
     required: [true, "Please provide storeId"],
   },
-  productName: {
+  product_name: {
     type: String,
     required: [true, "Please provide Productname"],
   },
-  productDescription: {
+  product_description: {
     type: String,
     required: [true, "Please provide ProductDescription"],
   },
-  productImg: {
+  product_image: {
     type: String,
     required: [true, "Please provide ProductUrl"],
 },
-  productPrice: {
+  product_price: {
     type: Number,
     required: [true, "Please provide productPrice"],
   },
