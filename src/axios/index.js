@@ -4,7 +4,7 @@ const getBaseUrl = () => {
     let url;
     switch(process.env.NODE_ENV) {
       case 'production':
-        url = 'https://google.com';
+        url = 'https://metacommerce.onrender.com';
         break;
       case 'development':
       default:
