@@ -73,7 +73,7 @@ export default function ProductPage(props) {
     const handleAddCart = async (e) => {
         e.preventDefault();
         if (!userAuth) {
-            navigate("/user/sign-in")
+            alert("Please Login to continue")
             return
         }
         setIsLoading(true);
@@ -91,7 +91,7 @@ export default function ProductPage(props) {
     const handleBuyNow = async (e) => {
         e.preventDefault();
         if (!userAuth) {
-            navigate("/user/sign-in")
+            alert("Please Login to continue")
             return
         }
         setIsLoading(true);
