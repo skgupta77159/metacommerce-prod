@@ -1,7 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
 const Product = require("../models/Product");
-
+const Order = require("../models/Order");
 //  SignIn user
 exports.signin = async (req, res, next) => {
     const { userEmail, password } = req.body;
@@ -70,3 +70,16 @@ exports.signup = async (req, res, next) => {
     const token = await user.getSignedJwtToken();
     res.status(statusCode).json({ sucess: true, token });
   };
+
+
+//Getreviews
+exports.getreviews = async (req, res, next) => {
+  try {
+      // console.log(req.body.productId)
+      const order = await Order.find({ productId: req.body.productId }).sort({createdAt: -1});
+      res.status(200).json(order);
+  } catch (err) {
+      next(err);
+      console.log(err)
+  }
+}

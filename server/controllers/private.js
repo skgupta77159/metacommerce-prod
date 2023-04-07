@@ -203,14 +203,3 @@ exports.addreviews = async (req, res, next) => {
         console.log(err)
     }
 }
-
-//Getreviews
-exports.getreviews = async (req, res, next) => {
-    try {
-        const order = await Order.find({ productId: req.body.productId }).sort({createdAt: -1});
-        res.status(200).json(order);
-    } catch (err) {
-        next(err);
-        console.log(err)
-    }
-}
