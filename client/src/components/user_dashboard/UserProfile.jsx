@@ -10,6 +10,11 @@ export default function UserProfile() {
             {
                 user ? <>
                     <div className="userProfileDiv">
+                        <div id="closeBtn">
+                            <button>
+                                X
+                            </button>
+                        </div>
                         <div className="personalInfo">
                             <div className="userDashRightTop">
                                 <h2>Profile</h2>

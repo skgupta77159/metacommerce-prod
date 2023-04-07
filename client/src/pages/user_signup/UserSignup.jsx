@@ -27,7 +27,7 @@ export default function UserSignup() {
     }
 
     const handleSubmit = async (e) => {
-        
+
         e.preventDefault();
         console.log(user)
         setIsLoading(true)
@@ -64,6 +64,11 @@ export default function UserSignup() {
         <div className='signupPage'>
             <form onSubmit={handleSubmit} className='signupPageWrapper'>
                 <div className="signupWrapper">
+                    <div id="closeBtn">
+                        <button>
+                            X
+                        </button>
+                    </div>
                     <div className="signupLeft">
                         <h3>User Sign Up</h3>
                         {errors ?
@@ -75,7 +80,7 @@ export default function UserSignup() {
                         <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
                         <input type="password" placeholder='Confirm Password' required name="cpassword" value={user.cpassword} onChange={handleChange} />
                         <button type="submit" className='signupButton' disabled={isLoading}>{isLoading ? "Loading..." : "Register"}</button>
-                        <button className='gotosignInButton' onClick={()=> setPage('signin')} >Sign In</button>
+                        <button className='gotosignInButton' onClick={() => setPage('signin')} >Sign In</button>
                     </div>
                 </div>
             </form>

@@ -12,6 +12,7 @@
 .signupPageWrapper {
     background-color: #FFFFFF;
     border-radius: 10px;
+    position: relative;
 }
 
 .signupWrapper{

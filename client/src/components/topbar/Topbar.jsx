@@ -19,7 +19,7 @@ export default function Topbar() {
     const { setProductName, searchProduct } = useContext(SearchContext)
     const [searchValue, setSearchValue] = useState("");
     const navigate = useNavigate();
-    const {setPage} = useContext(PageContext);
+    const { setPage } = useContext(PageContext);
 
     const user_logout = (e) => {
         e.preventDefault()
@@ -27,13 +27,21 @@ export default function Topbar() {
         window.location.reload();
     }
 
+    window.addEventListener('click', function (e) {
+        const ele = document.getElementById('closeBtn')
+        if (ele && ele.contains(e.target)) {
+            console.log("closed")
+            setPage("home")
+        }
+    });
+
     return (
         <div className="topbarWrapper">
-            <div onClick={()=> setPage("home")} className="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Meta-Logo.png/2560px-Meta-Logo.png" /></div>
+            <div onClick={() => setPage("home")} className="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Meta-Logo.png/2560px-Meta-Logo.png" /></div>
 
             <ul className="topbarList">
                 <>
-                    <li className="nav-item" onClick={()=> setPage("cart")}>
+                    <li className="nav-item" onClick={() => setPage("cart")}>
                         <div className="nav-link"><CartIcon /></div>
                         {user && user.cartItem.length > 0 ? <div className="cartBadge"><span>{user.cartItem.length}</span></div> : null}
                     </li>
