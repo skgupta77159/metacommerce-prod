@@ -55,8 +55,7 @@ export default function ProductPage(props) {
                     }
                 }
                 return await axios.post('/api/auth/getreviews', { "productId": product_id }, config).then(response => {
-                    console.log(response.data)
-                    setReview(response.data)
+                    setReview(response.data.filter((rev => rev.review.length>0)))
                     setReviewLoading(false)
                 }).catch((error) => {
                     console.log("Error while fetching reviews")
