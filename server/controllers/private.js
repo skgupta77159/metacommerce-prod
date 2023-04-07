@@ -163,20 +163,7 @@ exports.buyproduct = async (req, res, next) => {
 
 }
 
-//update status
-exports.updatestatus = async (req, res, next) => {
-    
-    try {
-        const order = await Order.findById(req.body.orderId);
-        if (order) {
-            await order.updateOne({ $set: { status: req.body.status } });
-        }
-        res.status(200).json({ sucess: true, message: "Status updated Successfully" });
-    } catch (err) {
-        next(err);
-        console.log(err)
-    }
-}
+
 
 exports.cancelorder = async (req, res, next) => {
     try {
