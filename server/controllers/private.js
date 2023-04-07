@@ -187,3 +187,19 @@ exports.cancelorder = async (req, res, next) => {
         console.log(err)
     }
 }
+
+
+//update status
+exports.addreviews = async (req, res, next) => {
+    
+    try {
+        const order = await Order.findById(req.body.orderId);
+        if (order) {
+            await order.updateOne({ $set: { review: req.body.review } });
+        }
+        res.status(200).json({ sucess: true, message: "review added Successfully" });
+    } catch (err) {
+        next(err);
+        console.log(err)
+    }
+}
