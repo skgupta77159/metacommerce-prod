@@ -83,3 +83,29 @@ exports.getreviews = async (req, res, next) => {
       console.log(err)
   }
 }
+
+//update status
+exports.updatestatus = async (req, res, next) => {
+    
+  try {
+      const order = await Order.findById(req.body.orderId);
+      if (order) {
+          await order.updateOne({ $set: { status: req.body.status } });
+      }
+      res.status(200).json({ sucess: true, message: "Status updated Successfully" });
+  } catch (err) {
+      next(err);
+      console.log(err)
+  }
+}
+
+//GetAllorderforAdmin
+exports.getAllOrderedItems= async (req, res, next) => {
+  try {
+      const order = await Order.find({}).sort({createdAt: -1});
+      res.status(200).json(order);
+  } catch (err) {
+      next(err);
+      console.log(err)
+  }
+}
