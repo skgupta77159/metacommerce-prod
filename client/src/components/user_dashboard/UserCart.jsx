@@ -120,7 +120,7 @@ export default function UserCart() {
                                     </div>
                                     {
                                         cartItem.length > 0 ?
-                                            <div className="scrollDiv">
+                                            <>
                                                 <div className="userDashRightTop">
                                                     <h2>Cart</h2>
                                                 </div>
@@ -141,7 +141,7 @@ export default function UserCart() {
                                                     </b>
                                                     <Orderconfirm signal={true} value={cartItem} getProduct={getProduct} />
                                                 </div>
-                                            </div>
+                                            </>
                                             : <h2>Oops! No item in cart 🙈</h2>
                                     }
                                 </div>
