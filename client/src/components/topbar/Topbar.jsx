@@ -27,7 +27,8 @@ export default function Topbar() {
         window.location.reload();
     }
 
-    window.addEventListener('click', function (e) {
+    window.addEventListener('mousedown', function (e) {
+        e.stopPropagation();
         const ele = document.getElementById('closeBtn')
         if (ele && ele.contains(e.target)) {
             console.log("closed")
