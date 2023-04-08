@@ -54,8 +54,8 @@ export default function ProductPage(props) {
                         "Content-Type": "application/json",
                     }
                 }
-                return await axios.post('/api/public/product/getproductreviews', { "product_id": product_id }, config).then(response => {
-                    setReview(response.data.data)
+                return await axios.post('/api/auth/getreviews', { "productId": product_id }, config).then(response => {
+                    setReview(response.data.filter((rev => rev.review.length>0)))
                     setReviewLoading(false)
                 }).catch((error) => {
                     console.log("Error while fetching reviews")
@@ -67,7 +67,7 @@ export default function ProductPage(props) {
             }
         }
         getProduct();
-        // getReviews();
+        getReviews();
     }, [product_id]);
 
     const handleAddCart = async (e) => {
@@ -110,17 +110,17 @@ export default function ProductPage(props) {
             <div className="reviewCard">
                 <div className="rcWrapper">
                     <div className="rcLeft">
-                        <h3>{props.value.user_name}</h3>
+                        <h3>{props.value.userName}</h3>
                         <p>{props.value.review}</p>
-                        <div className="rcDate"><ClockIcon /> <span>{props.value.updatedAt.slice(0, props.value.updatedAt.length - 13)}</span></div>
+                        <div className="rcDate"><ClockIcon /> <span>{props.value.createdAt.slice(0, props.value.createdAt.length - 14)}</span></div>
                     </div>
-                    <div className="rcRight">
+                    {/* <div className="rcRight">
                         {
                             props.value.sentiment === 1 ?
                                 <HappyIcon />
                                 : <SadIcon />
                         }
-                    </div>
+                    </div> */}
                 </div>
                 <hr />
             </div>
@@ -140,6 +140,7 @@ export default function ProductPage(props) {
                                 <h2>{product.product_name}</h2>
                                 <span>{product.product_category}</span>
                                 <h3>Price : ${product.product_price}/-</h3>
+                                <h4><s>MRP : ${Math.floor(parseInt(product.product_price)*100/(100-parseInt(product.discount)))}/-</s> from {product.discount}% discount</h4>
                                 <p>{product.product_description}</p>
                                 <div className="prodActionDiv">
                                     <button className="addBagBtn" onClick={handleAddCart} disabled={isLoading || (user && user.cartItem.includes(product_id))}>{(user && user.cartItem.includes(product_id)) ? "Added" : (isLoading ? "Adding..." : "Add to Bag")}</button>
@@ -150,7 +151,7 @@ export default function ProductPage(props) {
                     }
                 </div>
 
-                {/* {review &&
+                {review &&
                     <div className="productReview">
                         <h3>{review.length} Reviews</h3>
                         <hr />
@@ -164,7 +165,7 @@ export default function ProductPage(props) {
                                     return <ReviewCard key={key} value={item} />
                                 })
                         }
-                    </div>} */}
+                    </div>}
             </div>
         </div>
     )

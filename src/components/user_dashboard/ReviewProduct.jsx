@@ -27,13 +27,13 @@ export default function ReviewProduct(props) {
         e.preventDefault();
         try {
             const config = {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("userAuthToken")}`
                 },
             }
-            await axios.post("/api/user/product/writereview", {"order_id": props.order_id, "review": review} ,config).then((response)=>{
+            await axios.put("/api/private/addreview", {"orderId": props.order_id, "review": review} ,config).then((response)=>{
                 handleClose();
                 alert("Review Added Successfully")
             }).catch((error)=>{

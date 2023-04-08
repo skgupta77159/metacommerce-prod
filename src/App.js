@@ -18,6 +18,7 @@ import UserCart from './components/user_dashboard/UserCart';
 import UserProfile from './components/user_dashboard/UserProfile';
 import UserOrders from './components/user_dashboard/UserOrders';
 import { PageContextProvider } from './context/PageContext';
+import AdminOrders from './components/admin_dashboard/AdminOrders';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
                   <Route exact path="/user/orders" element={<UserPrivateRoute><UserOrders /></UserPrivateRoute>} /> */}
 
                   <Route exact path="/product/:product_id" element={<ProductPage />} />
+                  <Route exact path="/admin/orders" element={<AdminOrders />} />
                 </Routes>
               </BrowserRouter>
             </div>

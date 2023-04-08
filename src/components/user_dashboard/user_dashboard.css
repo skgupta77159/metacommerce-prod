@@ -22,12 +22,14 @@
     padding: 20px;
     box-sizing: border-box;
     height: 80vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    position: relative;
 }
 .userProfileDiv {
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 70%;
+    position: relative;
 }
 .personalInfo {
     padding: 20px;
@@ -254,10 +256,18 @@
     width: 70%;
     padding: 20px;
     box-sizing: border-box;
-    overflow-y: scroll;
+    position: absolute;
+    /* overflow-y: scroll; */
 }
 .userCartDiv {
     width: 100%;
+    overflow-y: scroll;
+    height: 50vh;
+}
+
+.userOrderDiv {
+    width: 100%;
+    overflow-y: scroll;
 }
 
 .ordersPage {
@@ -268,4 +278,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+#closeBtn {
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-box-shadow: -2px 2px 22px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 22px -7px rgba(0,0,0,0.75);
+    box-shadow: -2px 2px 22px -7px rgba(0,0,0,0.75);
+}
+
+#closeBtn button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: blue;
+    font-size: 20px;
+    cursor: pointer;
+}
+.scrollDiv {
+    overflow-y: scroll;
 }

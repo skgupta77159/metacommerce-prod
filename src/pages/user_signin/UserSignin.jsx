@@ -9,8 +9,8 @@ export default function UserSignin() {
     const [errors, setErrors] = useState("");
     const [user, setUser] = useState({ userEmail: "", password: "" })
     const [isLoading, setIsLoading] = useState(false);
-    const {setContext} = useContext(AppContext)
-    const {setPage} = useContext(PageContext);
+    const { setContext } = useContext(AppContext)
+    const { setPage } = useContext(PageContext);
 
 
     const navigate = useNavigate();
@@ -60,6 +60,11 @@ export default function UserSignin() {
         <div className='signinPage'>
             <form onSubmit={handleSubmit}>
                 <div className="signinWrapper">
+                    <div id="closeBtn">
+                        <button>
+                            X
+                        </button>
+                    </div>
                     <h3>User Sign In</h3>
                     {errors ?
                         <div className="errorDiv">
@@ -68,7 +73,7 @@ export default function UserSignin() {
                     <input type="email" placeholder='Email' required name="userEmail" value={user.userEmail} onChange={handleChange} />
                     <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
                     <button type="submit" className='signinButton' disabled={isLoading}>{isLoading ? "Loading..." : "Login"}</button>
-                    <button className='gotosignUpButton' onClick={()=>setPage("signup")} >Register</button>
+                    <button className='gotosignUpButton' onClick={() => setPage("signup")} >Register</button>
                 </div>
             </form>
         </div>

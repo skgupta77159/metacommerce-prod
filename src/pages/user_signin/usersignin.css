@@ -18,6 +18,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #FFFFFF;
+    position: relative;
 }
 .signupWrapper h3 {
     border: none;

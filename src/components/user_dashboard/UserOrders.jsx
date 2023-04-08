@@ -60,10 +60,10 @@ export default function UserOrders() {
                                     <span>Status</span>
                                     <p className={`${props.value.status === "Delivered" ? "markGreen" : null}`}>{props.value.status === "Delivered" ? "Order Delivered ✔️" : props.value.status}</p>
                                 </div>
+                                
                                 {
                                     props.value.status == "Delivered" ?
-                                        <></>
-                                        // <ReviewProduct signal={true} order_id={props.value._id} product_name={props.value.productName} review={props.value.review} />
+                                        <ReviewProduct signal={true} order_id={props.value._id} product_name={props.value.productName} review={props.value.review} />
                                         :
                                         <CancelOrder signal={true} order_id={props.value._id} getOrders={getOrders} />
                                 }
@@ -97,7 +97,12 @@ export default function UserOrders() {
                         isLoading ? <CircularProgress /> :
 
                             <div className="cartDiv">
-                                <div className="userCartDiv">
+                                <div id="closeBtn">
+                                    <button>
+                                        X
+                                    </button>
+                                </div>
+                                <div className="userOrderDiv">
                                     {
                                         orders.length > 0 ?
                                             <>

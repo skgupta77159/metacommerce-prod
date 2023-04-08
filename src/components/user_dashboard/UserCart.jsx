@@ -113,6 +113,11 @@ export default function UserCart() {
                         isLoading ? <CircularProgress /> :
                             <div className="userProfile">
                                 <div className="userCartsDiv">
+                                    <div id="closeBtn">
+                                        <button>
+                                            X
+                                        </button>
+                                    </div>
                                     {
                                         cartItem.length > 0 ?
                                             <>

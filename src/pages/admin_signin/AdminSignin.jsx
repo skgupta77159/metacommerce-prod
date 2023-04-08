@@ -9,7 +9,7 @@ export default function AdminSignin() {
     const [errors, setErrors] = useState("");
     const [user, setUser] = useState({ email: "", password: "" })
     const [isLoading, setIsLoading] = useState(false);
-    const {setContext} = useContext(AppContext)
+    const { setContext } = useContext(AppContext)
 
     const navigate = useNavigate();
     const gotoSignup = (e) => {
@@ -65,7 +65,7 @@ export default function AdminSignin() {
                         </div> : null}
                     <input type="email" placeholder='Email' required name="email" value={user.email} onChange={handleChange} />
                     <input type="password" placeholder='Password' required name="password" value={user.password} onChange={handleChange} />
-                    <button type="submit" className='signinButton' disabled={isLoading}>{isLoading ? "Loading...": "Login"}</button>
+                    <button type="submit" className='signinButton' disabled={isLoading}>{isLoading ? "Loading..." : "Login"}</button>
                     <button className='gotosignUpButton' onClick={gotoSignup} >Register</button>
                 </div>
             </form>
